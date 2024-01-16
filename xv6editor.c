@@ -1,3 +1,9 @@
+#include "types.h"
+#include "user.h"
+#include "fcntl.h"
+
+#define MAX_BUF 1024
+
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf(2, "Usage: %s filename\n", argv[0]);
