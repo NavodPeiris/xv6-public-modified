@@ -184,6 +184,7 @@ UPROGS=\
 	_xv6editor\
 	_read_file\
 	_snake\
+	_ping\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
