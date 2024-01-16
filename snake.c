@@ -11,6 +11,14 @@ int length;
 int tailX[100], tailY[100];
 int x, y, fruitX, fruitY, dir;
 
+unsigned long randstate = 1;
+unsigned int
+rand()
+{
+  randstate = randstate * 1664525 + 1013904223;
+  return randstate;
+}
+
 void setup() {
     gameOver = 0;
     score = 0;
