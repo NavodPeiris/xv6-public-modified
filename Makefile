@@ -181,7 +181,7 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
-	xv6editor\
+	_xv6editor\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
