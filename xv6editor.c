@@ -1,23 +1,3 @@
-// xv6editor.c
-#include "types.h"
-#include "user.h"
-#include "fcntl.h"
-
-#define MAX_BUF 1024
-
-void read_file(int fd) {
-    char buf[MAX_BUF];
-    int n;
-
-    while ((n = read(fd, buf, sizeof(buf))) > 0) {
-        write(1, buf, n);  // write to stdout (console)
-    }
-}
-
-void write_file(int fd, char *content, int size) {
-    write(fd, content, size);
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf(2, "Usage: %s filename\n", argv[0]);
@@ -50,8 +30,20 @@ int main(int argc, char *argv[]) {
             // End of file (Ctrl+D)
             break;
         }
-        if (len < MAX_BUF - 1) {
-            input[len++] = c;
+
+        // Check for the tab key (ASCII value 9)
+        if (c == 9) {
+            // Insert a tab character
+            if (len < MAX_BUF - 1) {
+                input[len++] = '\t';
+                putchar('\t'); // Display the tab on the console
+            }
+        } else {
+            // Insert the character
+            if (len < MAX_BUF - 1) {
+                input[len++] = c;
+                putchar(c); // Display the character on the console
+            }
         }
     }
     input[len] = '\0'; // Null-terminate the string
