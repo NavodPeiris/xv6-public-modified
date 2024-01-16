@@ -24,7 +24,12 @@ int main(int argc, char *argv[]) {
     }
 
     // Display the current content of the file
-    read_file(fd);
+    char buf[MAX_BUF];
+    int n;
+
+    while ((n = read(fd, buf, sizeof(buf))) > 0) {
+        write(1, buf, n);  // write to stdout (console)
+    }
 
     // Allow the user to input text
     char input[MAX_BUF];
@@ -55,7 +60,7 @@ int main(int argc, char *argv[]) {
     input[len] = '\0'; // Null-terminate the string
 
     // Write the input to the file
-    write_file(fd, input, len);
+    write(fd, input, len);
 
     // Close the file
     close(fd);
