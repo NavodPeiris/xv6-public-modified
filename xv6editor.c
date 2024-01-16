@@ -55,14 +55,12 @@ int main(int argc, char *argv[]) {
         if (c == 9) {
             // Insert a tab character
             if (len < MAX_BUF - 1) {
-                input[len++] = '\t';
                 write(1, "\t", 1); // Display the tab on the console
             }
         } else {
             // Insert the character
             if (len < MAX_BUF - 1) {
                 input[len++] = c;
-                write(1, &c, 1); // Display the character on the console
             }
         }
     }
