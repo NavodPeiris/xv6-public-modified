@@ -76,7 +76,6 @@ int main(int argc, char *argv[]) {
             // Insert the character
             if (len < MAX_BUF - 1) {
                 input[len++] = c;
-                write(1, &c, 1); // Display the character on the console
             }
         }
     }
