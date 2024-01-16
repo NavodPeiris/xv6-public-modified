@@ -14,8 +14,8 @@ void read_file(int fd) {
     }
 }
 
-void write_file(int fd, char *content) {
-    write(fd, content, strlen(content));
+void write_file(int fd, char *content, int size) {
+    write(fd, content, size);
 }
 
 int main(int argc, char *argv[]) {
@@ -42,12 +42,22 @@ int main(int argc, char *argv[]) {
 
     // Allow the user to input text
     char input[MAX_BUF];
-    printf(1, "\n-- Start typing (Ctrl+D to save and exit) --\n");
     int len = 0;
-    while ((input[len++] = getchar()) != -1 && len < MAX_BUF) {}
+    char c;
+    printf(1, "\n-- Start typing (Ctrl+D to save and exit) --\n");
+    while (1) {
+        if (read(0, &c, 1) == 0) {
+            // End of file (Ctrl+D)
+            break;
+        }
+        if (len < MAX_BUF - 1) {
+            input[len++] = c;
+        }
+    }
+    input[len] = '\0'; // Null-terminate the string
 
     // Write the input to the file
-    write_file(fd, input);
+    write_file(fd, input, len);
 
     // Close the file
     close(fd);
