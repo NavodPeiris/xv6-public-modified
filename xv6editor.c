@@ -18,6 +18,18 @@ void write_file(int fd, char *content, int size) {
     write(fd, content, size);
 }
 
+void backspace(char *input, int *len) {
+    if (*len > 0) {
+        (*len)--;
+        // Move the cursor back on the console
+        write(1, "\b", 1);
+        // Print a space to erase the character on the console
+        write(1, " ", 1);
+        // Move the cursor back again to the original position
+        write(1, "\b", 1);
+    }
+}
+
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf(2, "Usage: %s filename\n", argv[0]);
@@ -51,16 +63,20 @@ int main(int argc, char *argv[]) {
             break;
         }
 
-        // Check for the tab key (ASCII value 9)
-        if (c == 9) {
+        // Check for the backspace key (ASCII value 127)
+        if (c == 127) {
+            backspace(input, &len);
+        } else if (c == 9) {
             // Insert a tab character
             if (len < MAX_BUF - 1) {
+                input[len++] = c;
                 write(1, "\t", 1); // Display the tab on the console
             }
         } else {
             // Insert the character
             if (len < MAX_BUF - 1) {
                 input[len++] = c;
+                write(1, &c, 1); // Display the character on the console
             }
         }
     }
